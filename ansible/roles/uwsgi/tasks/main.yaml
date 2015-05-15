@@ -6,3 +6,6 @@
 - name: Installing uWSGI
   pip: name=uwsgi
        state=latest
+
+- name: Creating Sites Directory
+  file: path=/etc/uwsgi/sites state=directory

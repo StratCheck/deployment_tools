@@ -1,5 +1,16 @@
 ---
+githubkey: "/home/pstratton/.ssh/id_rsa"
+githubrepo: "git@github.com:StratCheck/scwebapp_proj.git"
+
+appname: "scwebapp"
+appgroup: "webapps"
+appsrc: "/webapps"
+appbase: "{{ appsrc }}/scwebapp_src"
+approot: "{{ appbase }}/scwebapp_proj"
+
 pguser: "scwebapp"
 pgpass: "fMc56ruv27qM2vs869266237r35v2A7ev54Y"
 pgip: "localhost"
 pgname: "scwebapp"
+
+uwsgisites: "/etc/uwsgi/sites"
