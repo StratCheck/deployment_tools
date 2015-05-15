@@ -3,6 +3,6 @@ This repo is a collection of deployment and orchestration tools in use by StratC
 
 ###Ansible Playbooks
 
-| Application        | OS Target | Script         | Usage  
-|--------------------|-----------|----------------|--------------------------------------------------|
-| StratCheck Web App | Debian 8+ | scwebapp.yaml  | `ansible-playbook scwebapp.yaml --ask-sudo-pass` | 
+| App     | OS       | Script         | Usage                                            |
+|--------------------|----------------|--------------------------------------------------|
+| Web App | Debian 8 | scwebapp.yaml  | `ansible-playbook scwebapp.yaml --ask-sudo-pass` | 
