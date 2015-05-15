@@ -1,0 +1,8 @@
+---
+- name: Installing Psycopg2 pre-requisites
+  action: apt pkg={{ item }} state=latest
+  with_items: item_list
+
+- name: Installing Psycopg2
+  pip: name=psycopg2
+       state=latest

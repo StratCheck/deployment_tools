@@ -1,0 +1,48 @@
+---
+- name: Creating Webapps Group
+  group: name=webapps system=yes state=present
+
+- name: Creating Webapps Directory
+  file: path=/webapps state=directory 
+
+- name: Creating scwebapp System Account
+  user: name=scwebapp system=yes group=webapps shell=/bin/bash home=/webapps/scwebapp_src
+
+- name: Creating scwebapp Postgres Role
+  sudo: True
+  sudo_user: postgres
+  postgresql_user: name={{ pguser }} password={{ pgpass }} role_attr_flags=NOSUPERUSER,NOCREATEDB,NOCREATEROLE state=present
+
+- name: Creating scwebapp Postgres DB
+  sudo: True
+  sudo_user: postgres
+  postgresql_db: name={{ pgname }} owner={{ pguser }}
+
+- name: Settings scwebapp DB Privileges
+  sudo: True
+  sudo_user: postgres
+  postgresql_privs: db={{ pgname }} privs=ALL type=database roles={{ pguser }}
+
+- name: Adding the scwebapp environment vars
+  template: src=bash_profile.j2 dest=/webapps/scwebapp_src/.bash_profile owner=scwebapp group=webapps mode=0777
+
+- name: Creating Project Directory
+  file: path=/webapps/scwebapp_src state=directory owner=scwebapp
+
+- name: Cloning SCWebApp Github Repo
+  git: repo=git@github.com:StratCheck/scwebapp_proj.git dest=/webapps/scwebapp_src/scwebapp_proj accept_hostkey=yes key_file=/home/pstratton/.ssh/id_rsa
+
+- name: Creating Virtual Environment
+  pip: virtualenv=/webapps/scwebapp_src/ state=present requirements=/webapps/scwebapp_src/scwebapp_proj/requirements.txt
+
+- name: Copying DB Migration Scripts
+  template: src=migrate.sh.j2 dest=/webapps/scwebapp_src/migrate.sh owner=scwebapp group=webapps mode=0777
+
+- name: Running Migrate and Collectstatic
+  command: ./migrate.sh chdir=/webapps/scwebapp_src
+
+- name: Cleaning up temp files
+  file: path=/webapps/scwebapp_src/migrate.sh state=absent
+
+- name: Settings Application Ownership
+  file: path=/webapps/scwebapp_src owner=scwebapp group=webapps recurse=yes state=directory

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd /webapps/scwebapp_src
+source .bash_profile
+source bin/activate
+python scwebapp_proj/scwebapp/manage.py migrate --settings=config.production
+python scwebapp_proj/scwebapp/manage.py collectstatic --settings=config.production --noinput

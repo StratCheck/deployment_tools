@@ -1,0 +1,5 @@
+---
+pguser: "scwebapp"
+pgpass: "fMc56ruv27qM2vs869266237r35v2A7ev54Y"
+pgip: "localhost"
+pgname: "scwebapp"

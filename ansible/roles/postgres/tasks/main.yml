@@ -1,0 +1,5 @@
+---
+- name: Installing Postgres
+  action: apt pkg={{ item }} state=latest update_cache=true
+  with_items: item_list
+  notify: start postgres

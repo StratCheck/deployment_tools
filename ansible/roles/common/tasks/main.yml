@@ -1,0 +1,10 @@
+---
+- name: Updating Apt Cache
+  apt: update_cache=yes
+
+- name: Upgrading all packages to latest version
+  apt: upgrade=dist
+
+- name: Installing Core Packages
+  action: apt pkg={{ item }} state=latest
+  with_items: item_list

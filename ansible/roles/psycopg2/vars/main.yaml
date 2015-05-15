@@ -1,0 +1,5 @@
+---
+item_list:
+  - gcc
+  - python-dev
+  - libpq-dev

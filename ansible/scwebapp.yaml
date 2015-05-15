@@ -1,0 +1,11 @@
+---
+- name: Composing StratCheck Web App Server
+  hosts: deb8_local_dev
+  remote_user: pstratton
+  sudo: yes
+  roles:
+    - { role: "common" }
+    - { role: "nginx" }
+    - { role: "uwsgi" }
+    - { role: "postgres" }
+    - { role: "scwebapp" }

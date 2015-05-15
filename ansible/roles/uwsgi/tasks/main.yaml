@@ -1,0 +1,8 @@
+---
+- name: Installing uWSGI requirements
+  action: apt pkg={{ item }} state=latest
+  with_items: item_list
+
+- name: Installing uWSGI
+  pip: name=uwsgi
+       state=latest

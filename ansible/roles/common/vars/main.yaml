@@ -1,0 +1,11 @@
+---
+item_list:
+  - git
+  - gcc
+  - vim
+  - bash
+  - python
+  - python-pip
+  - python-dev
+  - python-virtualenv
+  - build-essential
