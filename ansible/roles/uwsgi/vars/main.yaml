@@ -1,3 +1,5 @@
 ---
 item_list:
   - python-dev
+
+vassals: "/etc/uwsgi/vassals"

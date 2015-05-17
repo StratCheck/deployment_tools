@@ -13,4 +13,7 @@ pgpass: "fMc56ruv27qM2vs869266237r35v2A7ev54Y"
 pgip: "localhost"
 pgname: "scwebapp"
 
-uwsgisites: "/etc/uwsgi/sites"
+uwsgivassals: "/etc/uwsgi/vassals"
+uwsgisock: "{{ appbase }}/scwebapp.sock"
+
+djangosecretkey: "va7ke**&n4z-&k8uowr&i@c5vg4!wmu*fv^ft(dxdxdqg)o5qx"

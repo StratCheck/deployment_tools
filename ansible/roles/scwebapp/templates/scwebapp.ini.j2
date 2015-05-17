@@ -1,3 +1,15 @@
 [uwsgi]
-project = {{ appname }}
-base = {{ appsrc }}
+chdir={{ approot }}/{{ appname }}
+home={{ appbase }}
+module=wsgi_staging:application
+
+master=true
+processes=5
+
+socket={{ uwsgisock }}
+chmod-socket=664
+vacuum=true
+
+env=DJANGO_SECRET_KEY={{ djangosecretkey }}
+env=DATABASE_URL="postgres://{{ pguser }}:{{ pgpass }}@{{ pgip }}/{{ pgname }}"
+

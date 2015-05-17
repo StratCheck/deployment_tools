@@ -8,4 +8,22 @@
        state=latest
 
 - name: Creating Sites Directory
-  file: path=/etc/uwsgi/sites state=directory
+  file: path={{ vassals }} state=directory
+
+- name: Adding the Emperor to Systemd
+  copy: src=emperor.uwsgi.service dest=/etc/systemd/system/emperor.uwsgi.service mode=777
+
+- name: Copying the Emperor Init File
+  template: src=emperor.ini.j2 dest=/etc/uwsgi/emperor.ini
+
+- name: Enabling Emperor Service
+  sudo: True
+  command: systemctl enable emperor.uwsgi.service 
+
+- name: Starting Emperor Service
+  sudo: True
+  command: systemctl start emperor.uwsgi.service
+
+- name: Checking if Emperor is Running
+  sudo: True
+  command: systemctl status emperor.uwsgi.service

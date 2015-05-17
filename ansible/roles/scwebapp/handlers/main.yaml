@@ -1,0 +1,6 @@
+---
+- name: reload emperor
+  service: name=emperor.uwsgi.service state=restarted enabled=yes
+
+- name: restart nginx
+  service: name=nginx state=restarted enabled=yes

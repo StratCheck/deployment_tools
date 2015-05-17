@@ -1,0 +1,14 @@
+server {
+    listen 80;
+    server_name stratcheck.local stratcheck.io stratcheck.com www.stratcheck.io www.stratcheck.com;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        alias {{ approot }}/staticfiles/;
+    }
+
+    location / {
+        include uwsgi_params;
+        uwsgi_pass unix:/{{ uwsgisock }};
+    }
+}

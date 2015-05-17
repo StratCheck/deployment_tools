@@ -36,7 +36,7 @@
   pip: virtualenv={{ appbase }} state=present requirements={{ approot }}/requirements.txt
 
 - name: Copying uWSGI site config files
-  template: src=scwebapp.ini.j2 dest={{ uwsgisites }}/scwebapp.ini
+  template: src=scwebapp.ini.j2 dest={{ uwsgivassals }}/scwebapp.ini
 
 - name: Copying DB Migration Scripts
   template: src=migrate.sh.j2 dest={{ appbase }}/migrate.sh owner={{ appname }} group={{ appgroup }} mode=0777
@@ -49,3 +49,14 @@
 
 - name: Setting Application Ownership
   file: path={{ appbase }} owner={{ appname }} group={{ appgroup }} recurse=yes state=directory
+
+- name: Creating uWSGI socket
+  file: path={{ uwsgisock }} owner={{ appname }} group=www-data state=touch
+  notify: reload emperor
+
+- name: Adding scwebapp to nginx sites-available
+  template: src=scwebapp.nginx.j2  dest=/etc/nginx/sites-available/stratcheck.io
+
+- name: Adding scwebapp to nginx sites-enabled
+  file: path=/etc/nginx/sites-enabled/stratcheck.io src=/etc/nginx/sites-available/stratcheck.io state=link
+  notify: restart nginx
