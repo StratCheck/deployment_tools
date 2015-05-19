@@ -9,6 +9,7 @@ KillSignal=SIGQUIT
 Type=notify
 StandardError=syslog
 NotifyAccess=all
+PIDFile=/run/uwsgi.pid
 
 [Install]
 WantedBy=multi-user.target
